@@ -11,7 +11,7 @@ app.get('/users', function(req, res) {
       //Collection Variable to get Data
       var collection = db.collection('gg_login');
       //MongoDB select statement
-      collection.find({email:"arjun"}).toArray(function(err, items) {
+      collection.find({email:"arjraj1523@gmail.com"}).toArray(function(err, items) {
         res.json(items);
       });
     }
