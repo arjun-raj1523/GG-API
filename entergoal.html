@@ -9,7 +9,8 @@
           goalName=$("#goalName").val();
           goalType=$("#goalType").val();
           category=$("#category").val();
-          $.post("/put_user_goals",{userid:"id",goalName:goalName,goalType: goalType,category:category}, function(data){
+          userid="id"
+          $.post("/put_user_goals",{userid:userid,goalName:goalName,goalType: goalType,category:category}, function(data){
             if(data==='done')
               {
                 alert("login success");
