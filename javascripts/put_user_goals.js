@@ -8,13 +8,14 @@ router.post('/',function(req,res){
     if(!err) {
 
       //Collection Variable to get Data
-      var collection = db.collection('gg_login');
+      var collection = db.collection('gg_user_goals');
 
       //MongoDB insert into table
       collection.insert({
-          username:req.body.username,
-          email: req.body.email,
-          password: req.body.password
+          userid:req.body.userid,
+          goalName: req.body.goalName,
+          goalType: req.body.goalType,
+          category: req.body.category
       }, function(err, login_credientials){
           if (err) throw err;
       });

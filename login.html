@@ -7,8 +7,9 @@
         var user,pass;
         $("#submit").click(function(){
           email=$("#email").val();
-          pass=$("#password").val();
-          $.post("/put_user_creds",{email: email,password: pass}, function(data){
+          username=$("#username").val();
+          password=$("#password").val();
+          $.post("/put_user_creds",{username:username,email: email,password: password}, function(data){
             if(data==='done')
               {
                 alert("login success");
@@ -20,7 +21,8 @@
   </head>
   <body>
     <h1>Hello people !</h1>
-    <input type="TEXT" id="email" size="40"><br>
+    <input type="text" id="username" size="40"><br>
+    <input type="text" id="email" size="40"><br>
     <input type="password" id="password" size="40"><br>
     <input type="button" id="submit" value="Submit">
   </body>
