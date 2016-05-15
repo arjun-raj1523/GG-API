@@ -14,7 +14,6 @@ router.get('/:emailID', function(req, res){
       var collection = db.collection('gg_login');
       //MongoDB select statement with hardcoded value
       collection.find({email:emailID}).toArray(function(err, items) {
-
         res.json(items);
       });
     }
@@ -22,8 +21,8 @@ router.get('/:emailID', function(req, res){
       return console.log(err);
     }
   });
-
 });
+
 /*
   To get JSON for all user ID
 */
@@ -46,7 +45,6 @@ router.get('/', function(req, res){
       return console.log(err);
     }
   });
-
 });
 
 module.exports = router;
