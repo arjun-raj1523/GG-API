@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Simple login</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+    <script>
+      $(document).ready(function(){
+        var user,pass;
+        $("#submit").click(function(){
+          goalcontent=$("#content").val();
+          goallink=$("#link").val();
+          $.post("/put_user_goals_content",{userid:"userid1",goalid:"goalid1",goalcontent:goalcontent,goallink:goallink}, function(data){
+            if(data==='done')
+              {
+                alert("login success");
+              }
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Hello people !</h1>
+    <input type="text" id="content" size="40"><br>
+    <input type="text" id="link" size="40"><br>
+    <input type="button" id="submit" value="Submit">
+  </body>
+</html>
