@@ -7,28 +7,39 @@ var MongoClient = require('mongodb').MongoClient;
 /*
   To Get JSON for specific email id
 */
-router.get('/:emailID/:password', function(req, res){
+router.get('/:username/:password', function(req, res){
   //Connect to DB
-  var emailID = req.params.emailID;
+  var username = req.params.username;
   var password = req.params.password;
 
   MongoClient.connect("mongodb://ggadmin:khiladi720@ds045521.mlab.com:45521/gg_user", function(err, db) {
+    //No Error in connecting to DB
     if(!err) {
       //Collection Variable to get Data
       var collection = db.collection('gg_login');
       //MongoDB select statement with hardcoded value
-      collection.find({email:emailID}).toArray(function(err, items) {
+      collection.find({username:username}).toArray(function(err, items) {
+        //for no error in finding username
+        if(!err){
         if(sha1(password) ==items[0].password){
-          res.json("Success");
+          var authentication = JSON.parse('{"Authentication":"Success"}');
+          res.json(authentication);
         }
         else {
-          res.json("Failure");
+          var authentication = JSON.parse('{"Authentication":"Failure password"}');
+          res.json(authentication);
         }
-        //res.json(items[0].password);
+      }
+
+      else{
+        var authentication = JSON.parse('{"Authentication":"Failure username"}');
+        res.json(authentication);
+      }
       });
     }
     else {
-      return console.log(err);
+      var authentication = JSON.parse('{"Authentication":"Failure DB connection"}');
+      res.json(authentication);
     }
   });
 });
@@ -38,22 +49,9 @@ router.get('/:emailID/:password', function(req, res){
 */
 
 router.get('/', function(req, res){
-  //Connect to DB
-
-  MongoClient.connect("mongodb://ggadmin:khiladi720@ds045521.mlab.com:45521/gg_user", function(err, db) {
-    if(!err) {
-      //Collection Variable to get Data
-      var collection = db.collection('gg_login');
-      //MongoDB select statement with hardcoded value
-      collection.find({}).toArray(function(err, items) {
-        // To get User ID. console.log(items[0]._id);
-        res.json(items);
-      });
-    }
-    else {
-      return console.log(err);
-    }
-  });
+  res.send("Nice Try");
 });
-
+router.get('/:username', function(req, res){
+  res.send("Nice Try");
+});
 module.exports = router;

@@ -26,7 +26,7 @@ app.use('/put_user_goals_content',put_user_goals_content);
 //For avoidong Heroku $PORT error
 app.get('/', function(request, response) {
     var result = 'App is running'
-    response.sendFile(__dirname + '/login.html');
+    response.sendFile(__dirname + '/signup.html');
 }).listen(app.get('port'), function() {
     console.log('App is running, server is listening on port ', app.get('port'));
 });
