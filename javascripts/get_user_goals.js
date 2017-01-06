@@ -1,13 +1,6 @@
 var express = require('express');
-
 var router = express.Router();
 
-var admin = require("firebase-admin");
-
-admin.initializeApp({
-  credential: admin.credential.cert("./goalgettr-74966-firebase-adminsdk-u3g16-1f2fc8432a.json"),
-  databaseURL: "https://goalgettr-74966.firebaseio.com"
-});
 
 /*
   To Get JSON for specific email id

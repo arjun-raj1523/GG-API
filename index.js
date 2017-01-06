@@ -18,7 +18,12 @@ var put_user_goals = require('./javascripts/put_user_goals');
 app.use('/get_user_goals',get_user_goals);
 app.use('/put_user_goals',put_user_goals);
 
+admin = require("firebase-admin");
 
+admin.initializeApp({
+  credential: admin.credential.cert("./goalgettr-74966-firebase-adminsdk-u3g16-1f2fc8432a.json"),
+  databaseURL: "https://goalgettr-74966.firebaseio.com"
+});
 
 //For avoidong Heroku $PORT error
 app.get('/', function(request, response) {

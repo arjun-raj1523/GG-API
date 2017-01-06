@@ -1,31 +1,79 @@
 var express = require('express');
 var router = express.Router();
 
-//Post Method
-router.post('/',function(req,res){
-  var MongoClient = require('mongodb').MongoClient;
-  MongoClient.connect("mongodb://ggadmin:khiladi720@ds045521.mlab.com:45521/gg_user", function(err, db) {
-    if(!err) {
 
-      //Collection Variable to get Data
-      var collection = db.collection('gg_user_goals');
 
-      //MongoDB insert into table
-      collection.insert({
-          userid:req.body.userid,
-          goalName: req.body.goalName,
-          goalType: req.body.goalType,
-          category: req.body.category
-      }, function(err, login_credientials){
-          if (err) throw err;
-      });
+
+router.get('/',function(request,response){
+
+// Get a database reference to our blog
+var db = admin.database();
+var ref = db.ref("server/saving-data/fireblog");
+var usersRef = ref.child("users");
+  usersRef.child("alanisawesome").set({
+    date_of_birth: "June 23, 1912",
+    full_name: "Alan Turing"
+  });
+  usersRef.child("gracehop").set({
+    date_of_birth: "December 9, 1906",
+    full_name: "Grace Hopper"
+  });
+
+});
+
+router.get('/add',function(request,response){
+
+// Get a database reference to our blog
+var db = admin.database();
+var ref = db.ref("server/saving-data/fireblog");
+var usersRef = ref.child("users");
+  usersRef.child("alanisawesweome").set({
+    date_of_birth: "June 23, 1912",
+    full_name: "Alwe Turing"
+  },function(error){
+    if(error){
+      console.log("Error");
     }
-    else {
-      return console.log(err);
+    else
+      response.send("Done");
+  });
+
+
+});
+
+router.get('/update',function(request,response){
+
+  // Get a database reference to our blog
+  var db = admin.database();
+  var ref = db.ref("server/saving-data/fireblog");
+  var usersRef = ref.child("users");
+  usersRef.update({
+    "alanisawesome/goals": "",
+    
+  });
+
+
+});
+
+router.get('/addlist/:userid',function(request,response){
+  var db = admin.database();
+  var ref = db.ref("server/saving-data/fireblog");
+
+  var postsRef = ref.child("users/"+request.params.userid+"/goals");
+
+
+  // we can also chain the two calls together
+  postsRef.push().set({
+    author: "alanisawesome",
+    title: "The Turing Machine"
+  },function(error){
+    if(!error){
+      response.send("Added");
     }
   });
-  res.end("yes");
+
 });
+
 
 
 module.exports = router;
